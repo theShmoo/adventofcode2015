@@ -22,37 +22,41 @@ def access(operartions, cache, i):
     return cache[i]
 
 
-
 data = utils.get_input(2015, 7).split("\n")[:-1]
 for d in data:
     m = re.match(rshift_re, d)
     if m:
         g = m.groups()
-        operations[g[2]] = lambda a=g[0], b=int(g[1]): access(operations, cache, a) >> b
+        operations[g[2]] = lambda a=g[0], b=int(g[1]): access(
+            operations, cache, a) >> b
         continue
 
     m = re.match(lshift_re, d)
     if m:
         g = m.groups()
-        operations[g[2]] = lambda a=g[0], b=int(g[1]): access(operations, cache, a) << b
+        operations[g[2]] = lambda a=g[0], b=int(g[1]): access(
+            operations, cache, a) << b
         continue
 
     m = re.match(or_re, d)
     if m:
         g = m.groups()
-        operations[g[2]] = lambda a=g[0], b=g[1]: access(operations, cache, a) | access(operations, cache, b)
+        operations[g[2]] = lambda a=g[0], b=g[1]: access(
+            operations, cache, a) | access(operations, cache, b)
         continue
 
     m = re.match(number_and_re, d)
     if m:
         g = m.groups()
-        operations[g[2]] = lambda a=int(g[0]), b=g[1]: a & access(operations, cache, b)
+        operations[g[2]] = lambda a=int(g[0]), b=g[1]: a & access(
+            operations, cache, b)
         continue
 
     m = re.match(and_re, d)
     if m:
         g = m.groups()
-        operations[g[2]] = lambda a=g[0], b=g[1]: access(operations, cache, a) & access(operations, cache, b)
+        operations[g[2]] = lambda a=g[0], b=g[1]: access(
+            operations, cache, a) & access(operations, cache, b)
         continue
 
     m = re.match(not_re, d)
